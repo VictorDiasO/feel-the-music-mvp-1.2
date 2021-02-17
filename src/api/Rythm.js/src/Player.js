@@ -83,6 +83,7 @@ class Player {
   }
 
   start = () => {
+    // this.audio = new Audio('../../../assets/musics/BeatTrap.mp3')
     if (this.currentInputType === this.inputTypeList['TRACK']) {
       if (this.audioCtx.state === 'suspended') {
         this.audioCtx.resume()

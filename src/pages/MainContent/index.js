@@ -50,7 +50,8 @@ class MainContent extends Component {
         * 1024 Frequencies, your rythm will react to the average of your selected frequencies.
         * Examples: bass 0-10 ; medium 150-40 ; high 500-100
         */
-        rythm.addRythm("controls", 'color', 150, 40)
+        // rythm.addRythm("controls", 'color', 150, 40)
+        rythm.addRythm('pulse1', 'pulse', 0, 10)
 
         rythm.start();
     }

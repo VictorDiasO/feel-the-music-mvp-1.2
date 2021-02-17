@@ -37,12 +37,25 @@ class MainContent extends Component {
 
     vibrate = () => window.navigator.vibrate(200);
 
-    startRythm = () => {
-        rythm.setMusic('../../assets/musics/BeatTrap.mp3');
+    startRythm() {
+        rythm.maxValueHistory = 100;
+        rythm.setMusic('./BeatTrap.mp3');
+        rythm.setGain(2);
+
+        /*
+        * @elementClass: Class that you want to link your rythm to
+        * @danceType: Use any of the built-in effect or give your own function
+        * @startValue: The starting frequency of your rythm
+        * @nbValue: The number of frequency of your rythm
+        * 1024 Frequencies, your rythm will react to the average of your selected frequencies.
+        * Examples: bass 0-10 ; medium 150-40 ; high 500-100
+        */
+        rythm.addRythm("controls", 'color', 150, 40)
+
         rythm.start();
     }
 
-    stopRythm = () => {
+    stopRythm() {
         rythm.stop();
     }
 

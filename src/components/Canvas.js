@@ -42,15 +42,17 @@ class Canvas extends Component {
             x_end = center_x + Math.cos(rads * i) * (radius + bar_height);
             y_end = center_y + Math.sin(rads * i) * (radius + bar_height);
 
-            //draw a bar
-            this.drawBar(x, y, x_end, y_end, this.frequency_array[i], ctx, canvas);
 
             // Get sound infos
             // this.getSoundInfos(this.frequency_array)
-            this.getSoundInfosFrom2Datas(x, x_end);
+            // this.getSoundInfosFrom2Datas(x, x_end);
 
-            // Vibrate
+            // // Vibrate
             this.vibrating(x, x_end, y, y_end);
+
+
+            //draw a bar
+            this.drawBar(x, y, x_end, y_end, this.frequency_array[i], ctx, canvas);
         }
     }
 

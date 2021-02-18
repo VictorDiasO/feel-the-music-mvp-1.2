@@ -3,18 +3,22 @@ import React, { Component } from 'react';
 import './styles.css';
 import AudioAnalyser from '../../components/AudioAnalyser';
 import SoundAnalyser from '../../components/SoundVisualiser';
+import Canvas from '../../components/Canvas';
 import Rythm from '../../api/Rythm.js/src/'; 
 
 const rythm = new Rythm();
+
+// https://medium.com/swlh/create-an-audio-visualizer-with-react-and-canvas-part-1-of-3-da414a1edfed
+
 class MainContent extends Component {
     constructor(props) {
         super(props);
         this.state = {
             audio: null,
-            mp3: null
+            // mp3: null
         };
         this.toggleMicrophone = this.toggleMicrophone.bind(this);
-        this.toggleMp3File = this.toggleMp3File.bind(this);
+        // this.toggleMp3File = this.toggleMp3File.bind(this);
     }
 
     async getMicrophone() {
@@ -38,25 +42,25 @@ class MainContent extends Component {
         }
     }
 
-    async getMp3Sound() {
-        const mp3 = new Audio('./BeatTrap.mp3');
-        // mp3.play();
-        // mp3.srcObject = new MediaStream()
-        this.setState({ mp3 })
-    }
+    // async getMp3Sound() {
+    //     const mp3 = new Audio('./BeatTrap.mp3');
+    //     // mp3.play();
+    //     // mp3.srcObject = new MediaStream()
+    //     this.setState({ mp3 })
+    // }
 
-    stopMp3Sound() {
-        const mp3 = null
-        this.setState({ mp3 })
-    }
+    // stopMp3Sound() {
+    //     const mp3 = null
+    //     this.setState({ mp3 })
+    // }
 
-    toggleMp3File() {
-        if (this.state.mp3) {
-            this.stopMp3Sound();
-        } else {
-            this.getMp3Sound();
-        }
-    }
+    // toggleMp3File() {
+    //     if (this.state.mp3) {
+    //         this.stopMp3Sound();
+    //     } else {
+    //         this.getMp3Sound();
+    //     }
+    // }
 
     // getMp3Audio = () => {
     //     const mp3 = new Audio('./BeatTrap.mp3');
@@ -158,16 +162,16 @@ class MainContent extends Component {
                 </div>
                 { this.state.audio ? <AudioAnalyser audio={this.state.audio} /> : '' }
 
-                <div>
+                {/* <div>
                     <text>---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</text>
-                </div>
+                </div> */}
 
-                <div className="controls">
+                {/* <div className="controls">
                     <button onClick={this.toggleMp3File}>
                         {this.state.mp3 ? 'Stop mp3' : 'Get mp3'}
                     </button>
                 </div>
-                { this.state.mp3 ? <SoundAnalyser audio={this.state.mp3} /> : '' }
+                { this.state.mp3 ? <SoundAnalyser audio={this.state.mp3} /> : '' } */}
 
                 {/* <div className="RythM">
                     <button onClick={this.renderSoundBeat}>Start with sound</button>
@@ -178,6 +182,18 @@ class MainContent extends Component {
                 <div className="RythM2">
                     <button onClick={this.onMicClick}>Start mic Rythm</button>
                 </div> */}
+
+                {/* <div>
+                    <SoundAnalyser />
+                </div> */}
+
+                <div>
+                    <text>---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</text>
+                </div>
+
+                <div>
+                    <Canvas />
+                </div>
             </div>
         );
     }

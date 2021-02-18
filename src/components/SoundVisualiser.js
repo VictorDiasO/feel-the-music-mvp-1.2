@@ -55,7 +55,9 @@ class SoundVisualiser extends Component {
     }
 
   render() {
-    return <canvas width="300" height="300" ref={this.canvas} />;
+    return <>
+     <canvas width="300" height="300" ref={this.canvas} />;
+    </>
   }
 }
 

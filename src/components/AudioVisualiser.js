@@ -40,9 +40,12 @@ class AudioVisualiser extends Component {
       const y = (item / 255.0) * height;
       context.lineTo(x, y);
       x += sliceWidth;
-    //   console.log('Vee: ', x)
-      if ( x >= magicNumber ) {
-          this.vibrate()
+      //   console.log('Vee: ', x)
+      // if ( x >= magicNumber ) {
+      //     this.vibrate()
+      // }
+      if ( y >= magicNumber ) {
+        this.vibrate()
       }
     }
     context.lineTo(x, height / 2);

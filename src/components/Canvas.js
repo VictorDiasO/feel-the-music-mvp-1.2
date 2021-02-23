@@ -54,7 +54,7 @@ class Canvas extends Component {
 
             // Get sound infos
             // this.getSoundInfos(this.frequency_array)
-            this.getSoundInfosFrom2Datas(x, x_end);
+            // this.getSoundInfosFrom2Datas(x, x_end);
 
             // // Vibrate
             this.vibrating(x, x_end, y, y_end);

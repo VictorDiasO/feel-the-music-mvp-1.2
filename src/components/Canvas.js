@@ -27,6 +27,8 @@ class Canvas extends Component {
         super(props)
         // this.audio = new Audio('../assets/musics/BeatTrap.mp3');
         this.audio = new Audio(soundFile)
+        this.currentTime = 0;
+        this.duration = 0;
         this.canvas = createRef();
     }
 
@@ -38,6 +40,9 @@ class Canvas extends Component {
 
         // Normalize sound
         // this.normalizer('BeatTrap');
+
+        // this.getSoundInfos(this.audio)
+        this.getSoundTime(this.audio);
 
         for (var i = 0; i < bars; i++) {
             //divide a circle into equal part
@@ -85,7 +90,16 @@ class Canvas extends Component {
     }
 
     getSoundInfos(data) {
-        console.log(data);
+        console.log(data.length);
+    }
+
+    getSoundTime(sound) {
+        sound.addEventListener("timeupdate", e => {
+            this.currentTime = e.target.currentTime
+            this.duration = e.target.duration
+        });
+        console.log('Duration 1: ', this.duration)
+        console.log('Duration 2: ', this.currentTime);
     }
 
     getSoundInfosFrom2Datas(data1, data2) {
@@ -94,10 +108,10 @@ class Canvas extends Component {
     }
 
     // vibrate = () => window.navigator.vibrate(500);
-    vibrate = () => window.navigator.vibrate([500, 100]);
+    vibrate = () => window.navigator.vibrate([500, 100]); // Vou mudar esses 500ms aí para testar depois
 
     vibrating(x, end_x, y, end_y) {
-        const magicNumber = 450.3692930842692;
+        const magicNumber = 490.3692930842692;
         if (magicNumber <= end_x || magicNumber <= end_y ) {
             this.vibrate()
         }

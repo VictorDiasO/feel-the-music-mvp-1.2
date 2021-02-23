@@ -194,9 +194,11 @@ class Canvas extends Component {
 
     togglePlay = () => {
         let { audio } = this;
+        const audioElem = document.getElementsByClassName("audio-element")[0]
         // var playPromise = audio.play();
         if(audio.paused) {
             audio.play();
+            audioElem.play();
             // if (playPromise !== undefined) {
             //     playPromise.then(_ => {
             //         this.audio.play();
@@ -228,6 +230,11 @@ class Canvas extends Component {
         return <>
             <button onClick={this.togglePlay}>Play/Pause</button>
             <canvas ref={this.canvas}  />
+            <div>
+                <audio className="audio-element">
+                    <source src={soundFile}></source>
+                </audio>
+            </div>
         </>
     }
 }

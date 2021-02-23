@@ -232,7 +232,7 @@ class Canvas extends Component {
             <canvas ref={this.canvas}  />
             <div>
                 <audio className="audio-element">
-                    <source src={soundFile}></source>
+                    <source src="./BeatTrap.mp3" ></source>
                 </audio>
             </div>
         </>

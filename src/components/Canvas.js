@@ -2,6 +2,10 @@ import React, { Component, createRef } from 'react';
 
 import soundFile from '../assets/musics/BeatTrap.mp3'
 
+// import {} from '../api/numjs/src/index';
+
+// https://github.com/meyda/meyda
+
 // Changing Variables
 let ctx, x_end, y_end, bar_height;
 
@@ -16,6 +20,8 @@ const center_y = height / 2;
 
 const timesToGetInfo = 5;
 
+var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
 class Canvas extends Component {
     constructor(props) {
         super(props)
@@ -29,6 +35,9 @@ class Canvas extends Component {
         canvas.height = height;
 
         ctx = canvas.getContext("2d");
+
+        // Normalize sound
+        // this.normalizer('BeatTrap');
 
         for (var i = 0; i < bars; i++) {
             //divide a circle into equal part
@@ -45,10 +54,14 @@ class Canvas extends Component {
 
             // Get sound infos
             // this.getSoundInfos(this.frequency_array)
-            // this.getSoundInfosFrom2Datas(x, x_end);
+            this.getSoundInfosFrom2Datas(x, x_end);
 
             // // Vibrate
             this.vibrating(x, x_end, y, y_end);
+
+            // Normalize sound
+            // this.normalizer(this.audio)
+            // this.soundNormalizer()
 
 
             //draw a bar
@@ -80,13 +93,91 @@ class Canvas extends Component {
         console.log('2: ', data2);
     }
 
-    vibrate = () => window.navigator.vibrate(200);
+    vibrate = () => window.navigator.vibrate(300);
 
     vibrating(x, end_x, y, end_y) {
         const magicNumber = 450.3692930842692;
         if (magicNumber <= end_x || magicNumber <= end_y ) {
             this.vibrate()
         }
+    }
+
+    // Novo
+    soundNormalizer(){
+        // https://developer.mozilla.org/en-US/docs/Web/API/ConvolverNode/normalize - FALHOU
+        // https://stackoverflow.com/questions/38533410/normalize-audio-data-from-getbytefrequencydata-by-volume  - TESTANDO
+
+        // Config
+
+        var spectrum = [];
+
+        // Getting the frequency
+        this.analyser = this.context.createAnalyser();
+        this.frequency_array = new Uint8Array(this.analyser.frequencyBinCount);
+
+        // this.analyser.getbyteFrequencyData()
+        console.log(spectrum);
+        for (var i = 0; i < this.frequency_array.length; i++) {
+            var value = this.frequency_array[i];
+            spectrum.push(value)
+        }
+
+        console.log(spectrum)
+        
+    
+    }
+
+    // Antigo
+    normalizer(name) {
+        // console.log('oi')
+        var audioElem = this.audio;
+        // var src = audioCtx.createMediaElementSource(this.audio);
+        var gainNode = audioCtx.createGain();
+        // var gainNode = audioCtx.createPeriodicWave
+
+        gainNode.gain.value = 1.0;
+
+        // audioElem.addEventListener("play the nnormaizer", function() {
+        //     src.connect(gainNode);
+        //     gainNode.connect(audioCtx.destination);
+        // }, true)
+
+        // audioElem.addEventListener("pause the nnormaizer", function() {
+        //     // Disconnect the nodes after click in "pause", otherwise all nodes always run
+        //     src.disconnect();
+        //     gainNode.disconnect(audioCtx.destination);
+        // }, true)
+
+        fetch(name + '.mp3')
+            .then(function(res) { return res.arrayBuffer(); })
+            .then(function(buf) {
+                return audioCtx.decodeAudioData(buf);
+            }).then(function(decodedData) {
+                var decodedBuffer = decodedData.getChannelData(0);
+                var sliceLen = Math.floor(decodedData.sampleRate * 0.05);
+                var averages = [];
+                var sum = 0.0;
+                for (var i = 0; i < decodedBuffer.length; i++) {
+                    sum += decodedBuffer[i] ** 2;
+                    if (i % sliceLen === 0) {
+                        sum = Math.sqrt(sum / sliceLen);
+                        averages.push(sum);
+                        sum = 0;
+                    }
+                }
+
+                averages.sort(function(a, b) { return a - b; });
+
+                var a = averages[Math.floor(averages.length * 0.95)];
+
+                var gain = 1.0 / a;
+
+                gain = gain / 10.0;
+
+                console.log("Gain determined: ", name, " // ", a, " // ", gain);
+                gainNode.gain.value = gain;
+                audioElem.textContent = gain.toPrecision(4);
+            })
     }
 
     componentDidMount() {

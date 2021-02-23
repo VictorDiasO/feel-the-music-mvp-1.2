@@ -93,14 +93,9 @@ class Canvas extends Component {
         console.log('2: ', data2);
     }
 
-    vibrate = () => {
-        window.navigator.vibrate = window.navigator.webkitVibrate || window.navigator.mozVibrate || window.navigator.msVibrate;
-
-        window.navigator.vibrate(400);
-    }
+    vibrate = () => window.navigator.vibrate(400);
 
     vibrating(x, end_x, y, end_y) {
-
         const magicNumber = 450.3692930842692;
         if (magicNumber <= end_x || magicNumber <= end_y ) {
             this.vibrate()

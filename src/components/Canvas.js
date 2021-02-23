@@ -93,7 +93,7 @@ class Canvas extends Component {
         console.log('2: ', data2);
     }
 
-    vibrate = () => window.navigator.vibrate(400);
+    vibrate = () => window.navigator.vibrate(500);
 
     vibrating(x, end_x, y, end_y) {
         const magicNumber = 450.3692930842692;

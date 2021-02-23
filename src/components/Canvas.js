@@ -93,9 +93,14 @@ class Canvas extends Component {
         console.log('2: ', data2);
     }
 
-    vibrate = () => window.navigator.vibrate(400);
+    vibrate = () => {
+        window.navigator.vibrate = window.navigator.webkitVibrate || window.navigator.mozVibrate || window.navigator.msVibrate;
+
+        window.navigator.vibrate(400);
+    }
 
     vibrating(x, end_x, y, end_y) {
+
         const magicNumber = 450.3692930842692;
         if (magicNumber <= end_x || magicNumber <= end_y ) {
             this.vibrate()
@@ -194,11 +199,9 @@ class Canvas extends Component {
 
     togglePlay = () => {
         let { audio } = this;
-        const audioElem = document.getElementsByClassName("audio-element")[0]
         // var playPromise = audio.play();
         if(audio.paused) {
             audio.play();
-            audioElem.play();
             // if (playPromise !== undefined) {
             //     playPromise.then(_ => {
             //         this.audio.play();
@@ -230,11 +233,6 @@ class Canvas extends Component {
         return <>
             <button onClick={this.togglePlay}>Play/Pause</button>
             <canvas ref={this.canvas}  />
-            <div>
-                <audio className="audio-element">
-                    <source src="./BeatTrap.mp3" ></source>
-                </audio>
-            </div>
         </>
     }
 }

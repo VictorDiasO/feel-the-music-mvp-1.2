@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 // the number 210.05859375, this can be get with an print of "x" variable
 
-const magicNumber = 212.05859375;
+const magicNumber = 215.05859375;
 class SoundVisualiser extends Component {
   constructor(props) {
     super(props);

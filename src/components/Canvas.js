@@ -42,7 +42,11 @@ class Canvas extends Component {
         // this.normalizer('BeatTrap');
 
         // this.getSoundInfos(this.audio)
-        this.getSoundTime(this.audio);
+        // this.getSoundTime(this.audio);
+
+        // this.SoundAnalyser(this.audio);
+        // this.SoundAnalyser(this.audio);
+        // this.SoundAnayserInit(this.audio);
 
         for (var i = 0; i < bars; i++) {
             //divide a circle into equal part
@@ -68,10 +72,14 @@ class Canvas extends Component {
             // this.normalizer(this.audio)
             // this.soundNormalizer()
 
+            // this.SoundAnalyser(x_end, y_end);
+
 
             //draw a bar
             this.drawBar(x, y, x_end, y_end, this.frequency_array[i], ctx, canvas);
         }
+
+        
     }
 
     drawBar(x1=0, y1=0, x2=0, y2=0, frequency, ctx, canvas) {
@@ -195,6 +203,78 @@ class Canvas extends Component {
             })
     }
 
+    // async SoundAnalyser(end_x, end_y) {
+    SoundAnayserInit(sound) {
+        return sound;
+    }
+
+    async SoundAnalyser(sound) {
+        // Talvez usar o mesmo magicNumber e armazenar o tempo em que esse magicNumber é atingido ou ultrapassado, depois criar uma função que vibre quando a música alcançar aquele tempo especificado 
+        // const magicNumber = 490.3692930842692;
+        const newMagicNumber = 126;
+        // var time = [];
+        var time = new Array();
+
+        // console.log('before: ', time);
+
+        // if ( magicNumber <= end_x || magicNumber <= end_y ) {
+        //     time.push(this.currentTime);
+        // }
+        // console.log('after: ', time);
+
+        // let time_beats = [time][beats];
+
+        // Quando
+
+        let durationn = 0;
+        let currentTimee = 0;
+        let musicDuration = 0;
+
+        await sound.addEventListener("timeupdate", e => {
+            // this.currentTime = e.target.currentTime
+            // this.duration = e.target.duration
+            currentTimee = e.target.currentTime
+            durationn = e.target.duration
+
+            console.log('Value: ', durationn)
+
+            for (let i = 0; i < durationn; i++) {
+                // const rads = Math.PI * 2 / bars;
+                // bar_height = this.frequency_array[i] * 2;
+                // x_end = center_x + Math.cos(rads * i) * (radius + bar_height);
+                // y_end = center_y + Math.sin(rads * i) * (radius + bar_height);
+                // if (newMagicNumber >= this.frequency_array[i] ) {
+                //     time.push(this.frequency_array[i])
+                //     console.log('TIme: ', time)
+                // }
+                if ( this.frequency_array[i] >= newMagicNumber ) {
+                    // time.push(this.frequency_array[i])
+                    time.push(this.frequency_array[i])
+                    // console.log('TIme: ', time)
+                }
+    
+                console.log('TIme222: ', time)
+            }
+            // console.log('TIME333: ', time)
+            
+        });
+
+
+        // console.log(this.frequency_array)
+        for (let i = 0; i < this.durationn; i++) {
+            // const rads = Math.PI * 2 / bars;
+            // bar_height = this.frequency_array[i] * 2;
+            // x_end = center_x + Math.cos(rads * i) * (radius + bar_height);
+            // y_end = center_y + Math.sin(rads * i) * (radius + bar_height);
+            if (newMagicNumber >= this.frequency_array[i] ) {
+                await time.push(this.frequency_array[i])
+                console.log('TIme: ', time)
+            }
+
+            console.log('TIme222: ', time)
+        }
+    }
+
     componentDidMount() {
         this.context = new (window.AudioContext || window.webkitAudioContext)();
         this.source = this.context.createMediaElementSource(this.audio);
@@ -227,6 +307,30 @@ class Canvas extends Component {
          }
     }
 
+    toggleAnalyse = () => {
+        let { audio } = this;
+
+        // const sound = new Audio(soundFile);
+
+        if(audio.paused) {
+            audio.play();
+            // if (playPromise !== undefined) {
+            //     playPromise.then(_ => {
+            //         this.audio.play();
+            //     }).catch(error => {
+            //         console.log('Errooo: ', error);
+            //     });
+            // }
+            this.rafId = requestAnimationFrame(this.tick);
+            this.SoundAnalyser(audio);
+        } else {
+            audio.pause();
+            cancelAnimationFrame(this.rafId);
+            // audio.pause()
+            // this.SoundAnalyser(this.audio);
+        }
+    }
+
     tick = () => {
         this.animationLooper(this.canvas.current);
         this.analyser.getByteTimeDomainData(this.frequency_array);
@@ -243,6 +347,10 @@ class Canvas extends Component {
         return <>
             <button onClick={this.togglePlay}>Play/Pause</button>
             <canvas ref={this.canvas}  />
+
+            <div>
+                <button onClick={this.toggleAnalyse}>Analyse</button>
+            </div>
         </>
     }
 }

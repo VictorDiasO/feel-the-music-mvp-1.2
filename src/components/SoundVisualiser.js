@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 
 // git push -u origin main
 
-const magicNumber = 215.05859375;
+const magicNumber = 216.05859375;
 class SoundVisualiser extends Component {
   constructor(props) {
     super(props);

@@ -2,6 +2,8 @@ import React, { Component, createRef } from 'react';
 
 import soundFile from '../assets/musics/BeatTrap.mp3'
 
+import './Canva.css'
+
 // import {} from '../api/numjs/src/index';
 
 // https://github.com/meyda/meyda
@@ -348,9 +350,17 @@ class Canvas extends Component {
             <button onClick={this.togglePlay}>Play/Pause</button>
             <canvas ref={this.canvas}  />
 
-            <div>
-                <button onClick={this.toggleAnalyse}>Analyse</button>
+            <div className="analyse">
+                <button className="analyse-button" onClick={this.toggleAnalyse}>Analyse & Add to your PLaylist</button>
             </div>
+
+            <div className="button-see-playlist">
+                <button className="see-playlist">Ver playlist</button>
+            </div>
+
+            <div className="circle"></div>
+            <div className="arrow-right" onClick={this.togglePlay}></div>
+            <div className="pause" onClick={this.togglePlay}></div>
         </>
     }
 }

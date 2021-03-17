@@ -1,5 +1,5 @@
 .analyse {
-    margin-top: -110px;
+    margin-top: 30px;
 }
 
 .analyse .analyse-button {
@@ -23,9 +23,9 @@
 }
 
 .circle {
-    margin-top: 10px;
+    margin-top: 140%;
     margin-bottom: 15px;
-    margin-left: 65px;
+    margin-left: 30px;
     background: rgb(146, 145, 145);
     border-radius: 50%;
     width: 180px;
@@ -41,7 +41,7 @@
     border-left: 12px solid black;
 
     margin-top: -110px;
-    margin-left: 140px;
+    margin-left: 106px;
 
     outline:none;
     overflow: hidden;
@@ -61,7 +61,7 @@
     border-color: black;
 
     margin-top: -11px;
-    margin-left: 155px;
+    margin-left: 122px;
 
     outline:none;
     overflow: hidden;

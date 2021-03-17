@@ -348,7 +348,7 @@ class Canvas extends Component {
     render() {
         return <>
             <button onClick={this.togglePlay}>Play/Pause</button>
-            <canvas ref={this.canvas}  />
+            {/* <canvas ref={this.canvas}  /> */}
 
             <div className="analyse">
                 <button className="analyse-button" onClick={this.toggleAnalyse}>Analyse & Add to your PLaylist</button>
